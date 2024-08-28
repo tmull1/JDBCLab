@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 public class DatabaseConnector {
 
-    // Method to establish a connection to the SQLite database
     public Connection connect() {
         Connection connection = null;
         try {
@@ -23,22 +22,20 @@ public class DatabaseConnector {
         return connection;
     }
 
-    // Method to execute a SELECT query and print all records from the 'books' table
     public void selectAllBooks() {
         Connection connection = null;
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            // Establish a connection
+
             connection = this.connect();
-            // SQL query to select all records from the 'books' table
+
             String sql = "SELECT * FROM books";
-            // Create a statement object
+
             stmt = connection.createStatement();
-            // Execute the query and get the result set
+
             rs = stmt.executeQuery(sql);
 
-            // Iterate over the result set and print each record
             while (rs.next()) {
                 System.out.println(rs.getString("title") + "\t" +
                         rs.getString("author") + "\t" +
@@ -48,7 +45,7 @@ public class DatabaseConnector {
             System.out.println("Error executing SELECT statement");
             e.printStackTrace();
         } finally {
-            // Close resources in reverse order of their creation
+
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
@@ -59,7 +56,6 @@ public class DatabaseConnector {
         }
     }
 
-    // Main method to test the connection and query execution
     public static void main(String[] args) {
         DatabaseConnector connector = new DatabaseConnector();
         connector.selectAllBooks();
